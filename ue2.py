@@ -19,7 +19,6 @@ def ntobasetwo(n,c):
 
 def complement(b):
     # b is vector
-    output = []
     for i in range(len(b)-1,-1,-1):
         if b[i] == True:
             b[i] = False
