@@ -1,40 +1,15 @@
 def runden(x, L):
-    y = str(x)
-    print("Input: " + y)
-    num = []
+    exp = 0
+    while (x//1 != 0):
+        exp += 1
+        x /= 10
+    x_as_string = str(x)
+    x_mantissa = x_as_string[0:L+2]
+    x_mantissa = float(x_mantissa)
 
-    y = y.split(".")
+    if L+2 < len(x_as_string) and int(x_as_string[L+2]) >= 5:
+        x_mantissa = x_mantissa + pow(10, -L)
 
-    dec = len(y[0])
-    y = ''.join(y)
-    print("Dec at: " + str(dec) + "\nJoined number: " + str(y))
+    return round(x_mantissa*pow(10,exp), L)
 
-    output = 0
-    for i in range(0, len(y)):
-        num.append(int(y[i]))
-
-
-
-
-
-    for i in range(0, dec):
-        output += num[i] *  pow(10, (dec-i-1))
-
-
-
-
-    for i in range(dec, dec + L, 1):
-        if i > len(num)-1:
-            break
-        output += num[i] * pow(10, -i-1+dec)
-
-    if dec+L < len(y) and num[dec+L] >= 5: # Achtung: num[L] entspricht hier a_(l+1)
-        output += pow(10, -L)
-
-    # Hier muss eine Rundung angewendet werden, da Python sonst bei bestimmten Zahlen
-    # eine lange Nachkommastelle bildet, ironischerweise genau wegen der Rundungsmechanismen,
-    # die diese Funktion implementiert.😂 Es macht jedoch keinen Unterschied in der Funktionalität
-
-    return round(output, L)
-
-print("Output: " + str(runden(145132.324,1)))
+print(runden(28226,4))

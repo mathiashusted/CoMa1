@@ -10,40 +10,32 @@ stellung als Festkommazahl.
 """
 
 def runden(x, L):
+    exp = 0
     neg = False
-    y = str(x)
-    num = []
-    y = y.split(".")
-    if y[0][0] == "-":
+    if x < 0:
         neg = True
-        cc = y[0].split("-")
-        y[0] = cc[1]
-    dec = len(y[0]) # Suche Stelle, wo Komma vorkommt
-    y = ''.join(y)
+        x = abs(x)
+    
+    while (x//1 != 0):
+        exp += 1
+        x /= 10
+    
+    x_as_string = str(x)
+    x_mantissa = x_as_string[0:L+2]
+    x_mantissa = float(x_mantissa)
 
-    output = 0
-    for i in range(0, len(y)):
-        num.append(int(y[i]))
-
-    for i in range(0, dec):
-        output += num[i] *  pow(10, (dec-i-1))
-
-    for i in range(dec, dec + L, 1):
-        if i > len(num)-1:
-            break
-        output += num[i] * pow(10, -i-1+dec)
-
-    if dec+L < len(y) and num[dec+L] >= 5:
-        output += pow(10, -L)
+    if L+2 < len(x_as_string) and int(x_as_string[L+2]) >= 5:
+        x_mantissa = x_mantissa + pow(10, -L)
 
     # Hier muss eine Rundung angewendet werden, da Python sonst bei bestimmten Zahlen
     # eine lange Nachkommastelle bildet, ironischerweise genau wegen der Rundungsmechanismen,
     # die diese Funktion implementiert.😂 Es macht jedoch keinen Unterschied in der Funktionalität
-
-    if neg:
-        return -round(output, L)
+    if neg == False:
+        return round(x_mantissa*pow(10,exp), L)
     else:
-        return round(output, L)
+        return -round(x_mantissa*pow(10,exp), L)
+
+
 
 """
 b) Schreiben Sie Funktionen add(x, y, rd) und mult(x, y, rd). Hierbei sind x
@@ -116,9 +108,9 @@ calcBin = a*a + 2*a*b + b*b # Referenzwert für das Binom
 calcBinA = binomA(a,b, runden)
 calcBinB = binomB(a,b, runden)
 
-if calcBinA < calcBinB:
-    print("binomA ist schneller")
+if (abs(calcBin - calcBinA)) < (abs(calcBin - calcBinB)):
+    print("binomA ist besser")
 else:
-    print("binomB ist schneller")
+    print("binomB ist besser")
 
-print(runden(286,2))
+print(runden(28226.5,5))
