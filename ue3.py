@@ -46,7 +46,7 @@ und y erwartet.
 """
 
 
-# Es wurde exemplarisch 5 gewählt
+# Es wurde exemplarisch die Mantisse, die als Konstante definiert wurde, gewählt
 def add(x, y, rd):
     x = rd(x, MANTISSE)
     y = rd(y, MANTISSE)
@@ -113,4 +113,28 @@ if (abs(calcBin - calcBinA)) < (abs(calcBin - calcBinB)):
 else:
     print("binomB ist besser")
 
+"""
+f) (2 TP Bonuspunkte)
+Vergleichen Sie die Ausgabe der folgenden Ausdr¨ucke in Python:
+ print(0.1)
+ print(0.1*10 + 0.1*(-9))
+ print(add(mult(0.1,10, rd), mult(0.1,-9, rd), rd))
+Hierbei soll rd das Runden in G(10, 5) mittels runden(·, 5) bezeichnen.
+Welches Resultat erwarten Sie? Wie lassen sich die unterschiedlichen Ergebnisse
+erkl¨aren?
+"""
+
+print(0.1) # => 0.1
+print(0.1*10 + 0.1*(-9)) # => 0.09999999999999998
+print(add(mult(0.1,10, runden), mult(0.1,-9, runden), runden)) # => 0.1
+"""
+Antwort:
+0.1 ist trivial, da eine Nachkommastelle leicht dargestellt werden kann.
+
+(0.1*10 + 0.1*(-9)), anders ausgedrückt 1-0.9, ergibt 0.09999999999999998.
+In Binär ist 0.9 kein endlicher Bruch. Dementsprechend ist ein gewisser Fehler bei der diskreten Berechnung damit unmöglich auszuschließen.
+Verwenden wir unsere add() Funktion auf die gerundeten Zahlen, so wird nach dem Aufaddieren die runden() Funktion angewendet.
+"""
+
+# Test
 print(runden(28226.5,5))
