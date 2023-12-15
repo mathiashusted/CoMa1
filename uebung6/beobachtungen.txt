@@ -1,0 +1,8 @@
+1d)
+
+Für k = 0 gibt es jeweils ein err von NaN und NaN. Dies kommt daher, dass wir versuchen, durch 0 zu teilen in der generateData() Funktion.
+
+Für die anderen Werte k = {1, ..., 12} haben wir unterschiedliche Werte raus, allerdings sind meistens die Fehler bei 0, auch bei k=12. Dabei müsste
+man eigentlich meinen, dass gerade bei diesem Wert der Fehler größer werden müsste. Jedoch gilt es anzumerken, dass wir hier unsere Fehler, die
+durch die Verwendung von Floats entstehen, mit Floats versuchen zu berechnen. Deswegen "schleppt" sich der Fehler immer weiter mit, weswegen
+wir keine zuverlässigen Werte bekommen.
